@@ -77,45 +77,45 @@ public class SyncExample {
         int cnt = 0;
 
         // 线程1
-        new Thread(() -> {
-            synchronized (LOCK1) {
-                cnt += 10;
-                synchronized (LOCK2) {
-                    cnt -= 10;
-                }
-            }
-        }).start();
-
-        // 线程2
-        new Thread(() -> {
-            synchronized (LOCK2) {
-                cnt -= 10;
-                synchronized (LOCK1) {
-                    cnt += 10;
-                }
-            }
-        }).start();
-
-        // 如果两者同时执行，就会引发死锁
-
-        // 解决死锁的一个好办法是，对于锁来说，不同的线程获取锁的循序要一致， 下面是一个合理的顺序
-        new Thread(() -> {
-            synchronized (LOCK1) {
-                cnt += 10;
-                synchronized (LOCK2) {
-                    cnt -= 10;
-                }
-            }
-        }).start();
-
-        new Thread(() -> {
-            synchronized (LOCK1) {
-                cnt += 10;
-                synchronized (LOCK2) {
-                    cnt -= 10;
-                }
-            }
-        }).start();
+//        new Thread(() -> {
+//            synchronized (LOCK1) {
+//                cnt += 10;
+//                synchronized (LOCK2) {
+//                    cnt -= 10;
+//                }
+//            }
+//        }).start();
+//
+//        // 线程2
+//        new Thread(() -> {
+//            synchronized (LOCK2) {
+//                cnt -= 10;
+//                synchronized (LOCK1) {
+//                    cnt += 10;
+//                }
+//            }
+//        }).start();
+//
+//        // 如果两者同时执行，就会引发死锁
+//
+//        // 解决死锁的一个好办法是，对于锁来说，不同的线程获取锁的循序要一致， 下面是一个合理的顺序
+//        new Thread(() -> {
+//            synchronized (LOCK1) {
+//                cnt += 10;
+//                synchronized (LOCK2) {
+//                    cnt -= 10;
+//                }
+//            }
+//        }).start();
+//
+//        new Thread(() -> {
+//            synchronized (LOCK1) {
+//                cnt += 10;
+//                synchronized (LOCK2) {
+//                    cnt -= 10;
+//                }
+//            }
+//        }).start();
 
         // 这样，获取LOCK1的时候就不会去发生死锁
     }
